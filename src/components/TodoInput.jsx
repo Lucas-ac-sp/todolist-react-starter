@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import styled from 'styled-components';
 
 const StyledAddTodoContainer = styled.div`
@@ -67,15 +68,35 @@ const StyledAddTodoActionContainer = styled.div`
     }
   }
 `;
-const TodoInput = () => {
+const TodoInput = ({ inputValue, onChange, onKeyDown, onAddTodo }) => {
   return (
-    <StyledAddTodoContainer>
+    <StyledAddTodoContainer
+      className={clsx('', { active: inputValue.length > 0 })}
+    >
       <StyledLabelIcon className="icon" htmlFor="add-todo-input" />
       <StyledInputContainer>
-        <input id="add-todo-input" type="text" placeholder="新增工作" />
+        <input
+          id="add-todo-input"
+          type="text"
+          placeholder="新增工作"
+          value={inputValue}
+          onChange={(event) => {
+            // 使用 onChange?.(event.target.value) 的寫法，表示在 onChange 存在且不為 undefined 或 null 的情況下，才執行函數調用【.】，並將 event.target.value 作為參數傳遞進去。
+            onChange?.(event.target.value);
+          }}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter') {
+              onKeyDown?.();
+            }
+          }}
+        />
       </StyledInputContainer>
-      <StyledAddTodoActionContainer>
-        <button className="btn-reset">新增</button>
+      <StyledAddTodoActionContainer
+        className={clsx('', { active: inputValue.length > 0 })}
+      >
+        <button className="btn-reset" onClick={() => onAddTodo?.()}>
+          新增
+        </button>
       </StyledAddTodoActionContainer>
     </StyledAddTodoContainer>
   );

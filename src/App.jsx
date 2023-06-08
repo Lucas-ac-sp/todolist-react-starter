@@ -1,10 +1,21 @@
 import './App.scss';
-import { TodoPage, LoginPage, SignUpPage } from './pages';
+import {BrowserRouter, Route, Routes} from 'react-router-dom'
+import { HomePage,  TodoPage, LoginPage, SignUpPage } from './pages';
+import { AuthProvider } from 'contexts/AuthContext'
 
 function App() {
   return (
     <div className="app">
-      <TodoPage />
+      <BrowserRouter>
+        <AuthProvider>
+          <Routes>
+            <Route path="*" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/todos" element={<TodoPage />} />
+          </Routes>
+        </AuthProvider>
+      </BrowserRouter>
     </div>
   );
 }
