@@ -11,10 +11,10 @@ function App() {
       <BrowserRouter basename={basename}>
         <AuthProvider>
           <Routes>
-            <Route path="*" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/todos" element={<TodoPage />} />
+            <Route path="*" element={<HomePage />} />
           </Routes>
         </AuthProvider>
       </BrowserRouter>
